@@ -5,7 +5,13 @@ RUN apt update
 
 #install dependises 
 
-RUN apt -y install nano curl python3 ffmpeg cronb php php-fpm php-mysql
+RUN apt -y install nano curl python3 ffmpeg php php-fpm php-mysql
+
+#Makes Nginx do the work
+
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+COPY info/ /usr/share/nginx/html
 
 #installs YT-DLP
 
