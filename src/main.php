@@ -8,9 +8,7 @@ $id = rand(0,1000);
 
 function download($format, $link, $id) {
 
-    shell_exec("yt-dlp -f 'ba' '".$format."' '".$link."' -o '/downloads/'".$id."'/%(title)s.%(ext)s'");
-    print($format);
-    print($link);
+    shell_exec("yt-dlp ".$format." ".$link." -o './downloads/'".$id."'/'".$id."'.%(ext)s'");
 
 }
 
@@ -21,13 +19,14 @@ function download($format, $link, $id) {
 
 switch ($format) {
     case 'Mp3':
-        $format = "-x --audio-format mp3";
+        $format = " -f 'ba' -x --audio-format mp3";
+        $file = "mp3";
         download($format,$link,$id);
-        #print($id);
         break;
 
     case 'Mp4':
-        $format = "-S res,ext:mp4:m4a --recode mp4";
+        $format = '-f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"';
+        $file = "mp4";
         download($format,$link,$id);
         break;
 }
@@ -40,14 +39,13 @@ switch ($format) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Miku-DLP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
 </head>
 <body>
 
 
 <p> Download complete</p>
-<a href="/downloads/<?php echo $id;?>/*" download>
-  <img src="../php.png" alt="W3Schools" width="104" height="142">
-</a>
+<a href="./downloads/<?php echo $id;?>/<?php echo $id;?>.<?php echo $file;?>" download><button>Download</button></a>
 </body>
 </html>
